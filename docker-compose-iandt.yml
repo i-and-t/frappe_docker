@@ -9,9 +9,10 @@ services:
       - FRAPPE_PY_PORT=8000
       - FRAPPE_SOCKETIO=frappe-socketio
       - SOCKETIO_PORT=9000
+      - WEB_PORT=${WEB_PORT}
       - SKIP_NGINX_TEMPLATE_GENERATION=${SKIP_NGINX_TEMPLATE_GENERATION}
     ports:
-      - "80:8080"
+      - "80:80"
     volumes:
       - sites-vol:/var/www/html/sites:rw
       - assets-vol:/assets:rw

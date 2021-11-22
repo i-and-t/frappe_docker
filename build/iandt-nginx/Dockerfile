@@ -17,7 +17,6 @@ RUN apt-get update \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY install_app.sh /install_app
 RUN chmod +x /install_app \
     && /install_app erpnext ${GIT_REPO} ${GIT_BRANCH} ${FRAPPE_BRANCH}
@@ -27,6 +26,7 @@ FROM ${DOCKER_REGISTRY_PREFIX}/frappe-nginx:${IMAGE_TAG}
 
 COPY --from=builder /home/frappe/frappe-bench/sites/ /var/www/html/
 COPY --from=builder /rsync /rsync
+COPY nginx-default.conf.template /etc/nginx/conf.d/default.conf.template
 
 RUN echo "erpnext" >> /var/www/html/apps.txt
 RUN echo "chat" >> /var/www/html/apps.txt
